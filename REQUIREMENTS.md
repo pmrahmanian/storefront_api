@@ -6,8 +6,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 ## API Endpoints
 #### Products
 - Index 
-- Show
-- Create [token required]
+- Show: 'products/:id' [GET]
+- Create [token required]: 'products
 - [OPTIONAL] Top 5 most popular products 
 - [OPTIONAL] Products by category (args: product category)
 
@@ -40,3 +40,29 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+## Database Tables
+#### Products
+Table: products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR,
+    price number,
+    category VARCHAR
+)
+
+#### Users
+Table: users (
+    id SERIAL PRIMARY KEY,
+    firstName VARCHAR,
+    lastName VARCHAR,
+    password text
+)
+
+#### Orders
+Table: orders (
+    id SERIAL PRIMARY KEY,
+    order_id VARCHAR,
+    product_id VARCHAR [foreign key to products table],
+    product_quantity integer,
+    user_id VARCHAR [foreign key to users table],
+    order_status VARCHAR
+)
