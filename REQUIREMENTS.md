@@ -93,3 +93,11 @@ Table: orders (
     user_id VARCHAR [foreign key to users table],
     order_status VARCHAR
 )
+
+#### Order_Products
+Table: order_products (
+    id SERIAL PRIMARY KEY,
+    order_id bigint [foreign key to orders table]
+    product_id bigint [foreign key to products table],
+    quantity integer
+)
