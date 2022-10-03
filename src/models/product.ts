@@ -45,4 +45,16 @@ export class ProductStore {
             throw new Error(`Could not add new product ${p.name}. Error: ${error}`)
         }
     }
+
+    async indexByCategory(category:string): Promise<Product[]> {
+        try {
+            const conn = await database.connect()
+            const sql = 'SELECT * FROM products WHERE category=($1);'
+            const result = await conn.query(sql, [category])
+            conn.release()
+            return result.rows
+        } catch (error) {
+            throw new Error (`Could not get products with category ${category}. Error: ${error}`)
+        }
+    }
 }
