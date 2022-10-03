@@ -22,6 +22,10 @@ describe("User Model",  () => {
         expect(store.show).toBeDefined();
     });
 
+    it("should have a delete method",  () => {
+        expect(store.delete).toBeDefined();
+    });
+
 
     it("index method should return a list of users", async() => {
         const result = await store.index();
@@ -56,6 +60,13 @@ describe("User Model",  () => {
             lastName: "Matty",
             password: "testPassword"
         }])
+    })
+
+    it("delete method should delete user", async() => {
+        await store.delete('1')
+        const index = await store.index()
+        expect (index.length).toEqual(0)
+
     })
 
 

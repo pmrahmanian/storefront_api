@@ -45,4 +45,18 @@ export class UserStore {
             throw new Error(`Could not add new user ${u.firstName} ${u.lastName}. Error: ${error}`)
         }
     }
+
+    async delete (id:string): Promise<User> {
+        try {
+            const sql = 'DELETE FROM books WHERE id=($1);'
+            // @ts-ignore
+            const conn = await Client.connect()
+            const result = await conn.query(sql, [id])
+            conn.release()
+            return result.rows[0]
+        } catch (err) {
+            throw new Error(`Could not delete user ${id}. Error: ${err}`)
+        }
+    }
+
 }
