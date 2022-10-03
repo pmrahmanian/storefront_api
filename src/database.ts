@@ -12,7 +12,7 @@ const {
     ENV
 } = process.env
 
-let database
+let database: Pool = new Pool({});
 console.log(`Environment: ${ENV}`)
 
 if (ENV === 'dev') {
@@ -32,5 +32,7 @@ if (ENV === 'test') {
         password: POSTGRES_PASSWORD
     })
 }
+
+
 
 export default database
