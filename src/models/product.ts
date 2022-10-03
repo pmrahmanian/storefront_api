@@ -30,7 +30,7 @@ export class ProductStore {
             conn.release()
             return result.rows[0]
         } catch (error) {
-            throw new Error(`Could not find book ${id}. Error: ${error}`)
+            throw new Error(`Could not find product ${id}. Error: ${error}`)
         }
     }
 
