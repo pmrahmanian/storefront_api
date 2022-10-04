@@ -52,11 +52,11 @@ const destroy = async (req:Request, res:Response) => {
 }
 
 // routes
-const user_routes = (app: Express.Application) => {
-    app.get('/users', index)
-    app.get('/users/:id', show)
-    app.post('/users', create)
-    app.delete('/users/:id', destroy)
+const order_routes = (app: Express.Application) => {
+    app.get('/orders', index)
+    app.get('/orders/:id', show)
+    app.post('/orders', create)
+    app.delete('/orders/:id', destroy)
 }
 
-export default user_routes
+export default order_routes
