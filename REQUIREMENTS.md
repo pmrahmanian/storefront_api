@@ -45,7 +45,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - [OPTIONAL] Completed Orders by user 
 - - (args: user id)
 - - [token required] 
-- - route: 'orders?user=<user_id>&set=all' [GET]
+- - route: 'orders?user=<user_id>&status=complete' [GET]
 
 ## Data Shapes
 #### Product
@@ -87,11 +87,8 @@ Table: users (
 #### Orders
 Table: orders (
     id SERIAL PRIMARY KEY,
-    order_id VARCHAR,
-    product_id VARCHAR [foreign key to products table],
-    product_quantity integer,
-    user_id VARCHAR [foreign key to users table],
-    order_status VARCHAR
+    status VARCHAR,
+    user_id VARCHAR [foreign key to users table]
 )
 
 #### Order_Products
