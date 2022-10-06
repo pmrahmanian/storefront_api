@@ -65,9 +65,7 @@ describe("Order Model",  () => {
         expect(store.showByOrderID).toBeDefined();
     });
 
-    it("should have a create method",  () => {
-        expect(store.create).toBeDefined();
-    });
+
 
     it("should have a getID method",  () => {
         expect(store.getID).toBeDefined();
@@ -94,10 +92,7 @@ describe("Order Model",  () => {
     });
 
 
-    it("create method should return new order_product", async() => {
-        const result = await store.create(op);
-        expect(result).toEqual({id: 1, ...op});
-    });
+
 
     it("getID method should return correct value", async() => {
         const result = await store.getID(`${orderID}`, `${productID}`);
@@ -105,10 +100,7 @@ describe("Order Model",  () => {
         expect(result).toEqual(1);
     });
 
-    it("create method should have inserted new order into database", async() => {
-        const result = await store.index();
-        expect(result.length).toEqual(1);
-    });
+
 
     it("show method should return the correct product", async() => {
         const result = await store.show("1");

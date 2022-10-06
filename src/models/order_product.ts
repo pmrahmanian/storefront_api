@@ -45,19 +45,6 @@ export class OrderProductStore {
         }
     }
 
-    async create(op: OrderProduct): Promise<OrderProduct> {
-        try {
-            const conn = await database.connect()
-            // @ts-ignore
-            const sql = 'INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *;'
-            const result = await conn.query(sql, [op.order_id, op.product_id, op.quantity])
-            conn.release()
-            return result.rows[0]
-        } catch (error) {
-            throw new Error(`Could not add product ${op.product_id} to order ${op.order_id}. Error: ${error}`)
-        }
-    }
-
     async getID (order_id:string, product_id:string): Promise<Number> {
         try {
             const conn = await database.connect()
