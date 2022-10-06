@@ -1,11 +1,11 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction} from 'express'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 
 
 dotenv.config()
 
-const verifyAuthToken = (req: Request, res: Response, next) => {
+const verifyAuthToken = (req: Request, res: Response, next:NextFunction) => {
     try {
         const authorizationHeader = req.headers.authorization
         const token = authorizationHeader.split(' ')[1]
