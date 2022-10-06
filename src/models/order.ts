@@ -1,4 +1,5 @@
 import database from '../database'
+import {OrderProduct} from './order_product'
 
 export type Order = {
     id?: Number;
@@ -68,6 +69,19 @@ export class OrderStore {
             return result.rows
         } catch (error) {
             throw new Error(`Could not get completed orders for user ${user_id}. Error: ${error}`)
+        }
+    }
+
+    async addProduct(quantity: number, orderId: string, productId: string): Promise<OrderProduct | Order> {
+        try {
+            const conn = await database.connect()
+            // @ts-ignore
+            const sql = 'INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *;'
+            const result = await conn.query(sql, [orderId, productId, quantity])
+            conn.release()
+            return result.rows[0]
+        } catch (error) {
+            throw new Error(`Could not add product ${productId} to order ${orderId}. Error: ${error}`)
         }
     }
 }

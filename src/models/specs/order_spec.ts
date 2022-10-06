@@ -37,6 +37,10 @@ describe("Order Model",  () => {
         expect(store.show).toBeDefined();
     });
 
+    it("should have a addProduct method",  () => {
+        expect(store.addProduct).toBeDefined();
+    });
+
     it("should have a current order for user method",  () => {
         expect(store.currentOrderForUser).toBeDefined();
     });
@@ -91,6 +95,22 @@ describe("Order Model",  () => {
             user_id: userID
         })
     })
+
+    it("addProduct method should return new order_product", async() => {
+        
+        const order_id = "2"
+        const product_id = "1"
+        const quantity = 99
+        
+        const result = await store.addProduct(quantity, order_id, product_id);
+        expect(result).toEqual({id: 1, order_id: 2, product_id: 1, quantity: 99});
+    });
+
+    // it("addProduct method should have inserted new order into database", async() => {
+    //     const result = await store.index();
+    //     expect(result.length).toEqual(1);
+    // });
+
 
 
 })
