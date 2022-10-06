@@ -1,5 +1,10 @@
 import express, { Request, Response } from 'express'
 import { User, UserStore } from '../models/user'
+import verifyAuthToken from '../middlewares/verifyAuthToken'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const store = new UserStore()
 
@@ -26,10 +31,30 @@ const create = async (req:Request, res:Response) => {
         }
 
         const newUser = await store.create(user)
-        res.json(newUser)
+
+        // create JWT
+        const token = jwt.sign({user: newUser}, (process.env.TOKEN_SECRET as string))
+
+        res.json(token)
     } catch (error) {
         res.status(400)
         res.json(error)
+    }
+}
+
+const authenticate = async (req:Request, res:Response) => {
+    const user:User = {
+        firstName: req.body.firstName, 
+        lastName: req.body.lastName,
+        password: req.body.password
+    }
+    try {
+        const u = await store.authenticate(user)
+        const token = jwt.sign({user: u}, process.env.TOKEN_SECRET)
+        res.json(token)
+    } catch (error) {
+        res.status(401)
+        res.json({error})
     }
 }
 
@@ -40,10 +65,11 @@ const destroy = async (req:Request, res:Response) => {
 
 // routes
 const user_routes = (app: Express.Application) => {
-    app.get('/users', index)
-    app.get('/users/:id', show)
-    app.post('/users', create)
-    app.delete('/users/:id', destroy)
+    app.get('/users', verifyAuthToken, index)
+    app.get('/users/:id', verifyAuthToken, show)
+    app.post('/users', verifyAuthToken, create)
+    app.delete('/users/:id', verifyAuthToken, destroy)
+    app.post('/users/authenticate', authenticate)
 }
 
 export default user_routes
