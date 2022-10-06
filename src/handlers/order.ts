@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { Order, OrderStore } from '../models/order'
 
 import verifyAuthToken from '../middlewares/verifyAuthToken'
+import isOrderOpen from '../middlewares/isOrderOpen'
 
 const store = new OrderStore()
 
@@ -72,7 +73,7 @@ const order_routes = (app: Express.Application) => {
     app.get('/orders/:id', verifyAuthToken, show)
     app.post('/orders', verifyAuthToken, create)
     app.delete('/orders/:id', verifyAuthToken, destroy)
-    app.post('/orders/:id/products', verifyAuthToken, addProduct)
+    app.post('/orders/:id/products', verifyAuthToken, isOrderOpen, addProduct)
 }
 
 export default order_routes
