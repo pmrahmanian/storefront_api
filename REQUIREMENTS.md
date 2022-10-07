@@ -81,7 +81,7 @@ Table: users (
     id SERIAL PRIMARY KEY,
     firstName VARCHAR,
     lastName VARCHAR,
-    password text
+    password_digest text
 )
 
 #### Orders
