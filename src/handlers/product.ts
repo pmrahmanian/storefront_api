@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import { Product, ProductStore } from '../models/product';
 import verifyAuthToken from '../middlewares/verifyAuthToken';
 
@@ -40,7 +40,7 @@ const destroy = async (req: Request, res: Response) => {
 };
 
 // routes
-const product_routes = (app: Express.Application) => {
+const product_routes = (app: express.Application) => {
 	app.get('/products', index);
 	app.get('/products/:id', show);
 	app.post('/products', verifyAuthToken, create);

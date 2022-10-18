@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import { User, UserStore } from '../models/user';
 import verifyAuthToken from '../middlewares/verifyAuthToken';
 import jwt from 'jsonwebtoken';
@@ -64,7 +64,7 @@ const destroy = async (req: Request, res: Response) => {
 };
 
 // routes
-const user_routes = (app: Express.Application) => {
+const user_routes = (app: express.Application) => {
 	app.get('/users', verifyAuthToken, index);
 	app.get('/users/:id', verifyAuthToken, show);
 	app.post('/users', verifyAuthToken, create);

@@ -1,4 +1,6 @@
-import express, { Request, Response } from 'express';
+import * as express from 'express';
+import {  Application, Request, Response } from 'express';
+// import type {Express} from 'express'
 import { Order, OrderStore } from '../models/order';
 
 import verifyAuthToken from '../middlewares/verifyAuthToken';
@@ -68,7 +70,7 @@ const addProduct = async (req: Request, res: Response) => {
 };
 
 // routes
-const order_routes = (app: Express.Application) => {
+const order_routes = (app: express.Application) => {
 	app.get('/orders/{:user_id}.{:status}', verifyAuthToken, index);
 	app.get('/orders/:id', verifyAuthToken, show);
 	app.post('/orders', verifyAuthToken, create);
